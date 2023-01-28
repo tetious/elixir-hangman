@@ -99,10 +99,26 @@ defmodule HangmanImplGameTest do
       {"z", :bad_guess, 4, ["_", "e", "l", "l", "o"], ["a", "e", "x", "l", "o", "z"]},
       {"y", :bad_guess, 3, ["_", "e", "l", "l", "o"], ["a", "e", "x", "l", "o", "z", "y"]},
       {"w", :bad_guess, 2, ["_", "e", "l", "l", "o"], ["a", "e", "x", "l", "o", "z", "y", "w"]},
-      {"q", :bad_guess, 1, ["_", "e", "l", "l", "o"], ["a", "e", "x", "l", "o", "z", "y", "w", "q"]},
-      {"u", :lost, 0, ["_", "e", "l", "l", "o"], ["a", "e", "x", "l", "o", "z", "u", "y", "w", "q" ]},
+      {"q", :bad_guess, 1, ["_", "e", "l", "l", "o"],
+       ["a", "e", "x", "l", "o", "z", "y", "w", "q"]},
+      {"u", :lost, 0, ["_", "e", "l", "l", "o"],
+       ["a", "e", "x", "l", "o", "z", "u", "y", "w", "q"]}
     ]
     |> test_sequence_of_moves("hello")
+  end
+
+  test "throws when guess is too long" do
+    game = Game.new_game()
+
+    assert_raise ArgumentError, fn -> Game.make_move(game, "zz") end
+  end
+
+  test "throws when guess is not lowercase letter" do
+    game = Game.new_game()
+
+    assert_raise ArgumentError, fn -> Game.make_move(game, "A") end
+    assert_raise ArgumentError, fn -> Game.make_move(game, "1") end
+    assert_raise ArgumentError, fn -> Game.make_move(game, " ") end
   end
 
   defp test_sequence_of_moves(script, target) do

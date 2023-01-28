@@ -22,6 +22,11 @@ defmodule Hangman.Impl.Game do
   end
 
   @spec make_move(t, String.t()) :: {t, Type.tally()}
+  def make_move(_game, <<l::8, _::binary>> = guess)
+      when byte_size(guess) != 1 or l not in 97..122 do
+    raise ArgumentError, "guess must be a single lowercase letter"
+  end
+
   def make_move(game = %{game_state: state}, _guess) when state in [:won, :lost],
     do: game |> return_with_tally()
 
@@ -40,9 +45,7 @@ defmodule Hangman.Impl.Game do
 
   defp score_guess(game, _good_guess = true) do
     won = game.letters |> MapSet.new() |> MapSet.subset?(game.used)
-    new_state = if won, do: :won, else: :good_guess
-
-    %{game | game_state: new_state}
+    %{game | game_state: if(won, do: :won, else: :good_guess)}
   end
 
   defp score_guess(game = %{turns_left: 1}, _bad_guess) do
