@@ -56,7 +56,7 @@ defmodule Hangman.Impl.Game do
     %{game | game_state: :bad_guess, turns_left: game.turns_left - 1}
   end
 
-  defp tally(game) do
+  def tally(game) do
     %{
       turns_left: game.turns_left,
       game_state: game.game_state,
@@ -64,6 +64,8 @@ defmodule Hangman.Impl.Game do
       used: game.used |> MapSet.to_list() |> Enum.sort()
     }
   end
+
+  defp reveal_guessed_letters(game = %{game_state: :lost}), do: game.letters
 
   defp reveal_guessed_letters(game) do
     game.letters |> Enum.map(&(MapSet.member?(game.used, &1) |> maybe_reveal(&1)))
