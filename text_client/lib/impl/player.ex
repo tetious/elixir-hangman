@@ -17,12 +17,10 @@ defmodule TextClient.Impl.Player do
   end
 
   def interact({game, tally}) do
-    tally |> feedback_for() |> IO.puts()
-    tally |> current_word() |> IO.puts()
-
-    game
-    |> Hangman.make_move(get_guess())
-    |> interact()
+    feedback_for(tally) |> IO.puts()
+    current_word(tally) |> IO.puts()
+    tally = Hangman.make_move(game, get_guess())
+    interact({game, tally})
   end
 
   defp get_guess() do
