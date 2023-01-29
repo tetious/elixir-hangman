@@ -5,15 +5,16 @@
 
   <div>
     <div class="grid grid-cols-2">
-      <p class="font-bold">Turns left:</p><p><%= @tally.turns_left %></p>
-      <p class="font-bold">Letters used:</p><p><%= @tally.used |> Enum.join(", ") %></p>
-      <p class="font-bold">Word so far:</p><p><%= @tally.letters |> Enum.join(" ") %></p>
+      <p>Turns left:</p>
+      <p class="font-bold"><%= @tally.turns_left %></p>
+      <p>Letters used:</p>
+      <p class="font-bold"><%= @tally.used |> Enum.join(", ") %></p>
+      <p>Word so far:</p>
+      <p class="font-bold"><%= @tally.letters |> Enum.join(" ") %></p>
     </div>
-    <.simple_form :let={f} for={:make_move} action={~p"/hangman"} method="put">
-      <.input field={{f, :guess}} label="Guess" />
-      <:actions>
-        <.button>Submit</.button>
-      </:actions>
-    </.simple_form>
+    <div class="mt-4">
+      <.move_status status={@tally.game_state} />
+    </div>
+    <.continue_or_try_again status={@tally.game_state} />
   </div>
 </div>
