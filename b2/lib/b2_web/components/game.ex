@@ -10,6 +10,9 @@ defmodule B2Web.Components.Game do
     already_used: {"text-[#caa]", "Oops. You already used that letter."}
   }
 
+  @letters (?a..?z) |> Enum.map(& <<&1::utf8>>)
+  def letters(), do: @letters
+
   attr :state, :string, required: true
 
   def state_name(assigns) do

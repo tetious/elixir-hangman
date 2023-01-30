@@ -1,1 +1,18 @@
-abc!
+<div class="flex flex-wrap justify-center gap-2 text-2xl mb-4">
+  <%= for l <- letters() do %>
+    <div
+      phx-click="make_move"
+      phx-value-key={l}
+      class={[
+        cond do
+          Enum.member?(@tally.letters, l) -> "text-green-700"
+          Enum.member?(@tally.used, l) -> "text-red-700"
+          true -> "text-gray-600"
+        end,
+        "cursor-pointer"
+      ]}
+    >
+      <%= l %>
+    </div>
+  <% end %>
+</div>
