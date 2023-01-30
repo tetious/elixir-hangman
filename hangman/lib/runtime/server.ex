@@ -18,11 +18,11 @@ defmodule Hangman.Runtime.Server do
   def handle_call({:make_move, guess}, _from, {game, watcher}) do
     Watchdog.pet(watcher)
     {game, tally} = Game.make_move(game, guess)
-    {:reply, tally, game}
+    {:reply, tally, {game, watcher}}
   end
 
   def handle_call({:tally}, _from, {game, watcher}) do
     Watchdog.pet(watcher)
-    {:reply, Game.tally(game), game}
+    {:reply, Game.tally(game), {game, watcher}}
   end
 end
