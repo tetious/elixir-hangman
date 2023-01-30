@@ -11,6 +11,9 @@
 		},
 		{
 			"path": "text_client"
+		},
+		{
+			"path": "memory"
 		}
 	],
 	"settings": {}
