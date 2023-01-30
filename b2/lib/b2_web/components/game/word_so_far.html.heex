@@ -1,6 +1,6 @@
-<div>
+<div class="text-center">
   <.state_name state={@tally.game_state} />
-  <div class="flex gap-4 text-4xl">
+  <div class="flex gap-4 justify-center text-4xl">
     <%= for ch <- @tally.letters do %>
       <div><%= ch %></div>
     <% end %>

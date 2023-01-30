@@ -13,6 +13,10 @@ defmodule B2Web.Components.Game do
   @letters (?a..?z) |> Enum.map(& <<&1::utf8>>)
   def letters(), do: @letters
 
+  def hide_if_left_gt(left, level) do
+    if left > level, do: "opacity-10", else: ""
+  end
+
   attr :state, :string, required: true
 
   def state_name(assigns) do

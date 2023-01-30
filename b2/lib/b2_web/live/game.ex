@@ -15,10 +15,14 @@ defmodule B2Web.Game do
 
   def render(assigns) do
     ~H"""
-    <div phx-window-keyup="make_move">
-      <.figure tally={@tally} />
-      <.alphabet tally={@tally} />
-      <.word_so_far tally={@tally} />
+    <div class="grid grid-cols-2 gap-8" phx-window-keyup="make_move">
+      <div>
+        <.figure tally={@tally} />
+      </div>
+      <div>
+        <.alphabet tally={@tally} />
+        <.word_so_far tally={@tally} />
+      </div>
     </div>
     """
   end
